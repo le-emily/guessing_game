@@ -15,6 +15,7 @@ def guess_number(lowest_num_guess=11, best_score=1):
     beg_range = int(raw_input("What is the beginning of your range? "))
     end_range = int(raw_input("What is the ending of your range? "))
     secret_number = random.randint(beg_range, end_range)
+
     while guess != secret_number and number_of_guesses < 6:
         number_of_guesses += 1
         try:
@@ -28,10 +29,11 @@ def guess_number(lowest_num_guess=11, best_score=1):
             else:
                 print "You got it in " + str(number_of_guesses) + " tries!!"
                 value = float(number_of_guesses/(end_range-beg_range))
-                # append to list
-                score_value.append(value)
                 initials = raw_input("What are your initials? ")
-                scores_dict[initials] = score_value
+                if initials not in scores_dict:
+                    scores_dict[initials] = [value]
+                else:
+                    scores_dict[initials].append([value])
                 print scores_dict
                 # keep track of lowest_num_guess
                 if number_of_guesses < lowest_num_guess:
